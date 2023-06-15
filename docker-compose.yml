@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  notifier:
+    build:
+      dockerfile: Dockerfile
+    container_name: notifier
+    ports:
+      - "80:80"
