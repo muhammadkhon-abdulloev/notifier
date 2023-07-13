@@ -1,5 +1,7 @@
 using notifier.Service;
 using NotifierApp;
+using NotifierApp.Interfaces;
+using NotifierApp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
 builder.Services.AddSingleton<NotificationService>();
 builder.Services.AddHostedService<Worker>();
 

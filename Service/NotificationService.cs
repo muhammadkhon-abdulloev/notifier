@@ -1,15 +1,17 @@
+using NotifierApp.Interfaces;
+
 namespace notifier.Service;
 
 public class NotificationService
 {
-    private Queue<Notification> NotificationsQueue { get; }
-    public IEnumerable<Notification> GetAll() => NotificationsQueue.ToArray();
-    public void Add(Notification notification) => NotificationsQueue.Enqueue(notification);
-    public bool Get(out Notification? notification) => NotificationsQueue.TryDequeue(out notification);
-    
-    public NotificationService()
+    private readonly INotificationRepository _notificationRepository;
+    public IEnumerable<Notification> GetAll() => _notificationRepository.GetAll();
+    public void Add(Notification notification) => _notificationRepository.Add(notification);
+    public Notification? Get() => _notificationRepository.Get();
+
+    public NotificationService(INotificationRepository notificationRepository)
     {
-        NotificationsQueue = new Queue<Notification>();
+        _notificationRepository = notificationRepository;
     }
     
     public static void Notify(Notification notification)

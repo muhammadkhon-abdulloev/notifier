@@ -18,10 +18,11 @@ public class Worker: BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            _logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
             await Task.Delay(5000, stoppingToken);
-
-            if (_notificationService.Get(out var notification) && notification != null)
+            
+            var notification = _notificationService.Get();
+            if (notification is not null)
             {
                 NotificationService.Notify(notification);
             }
