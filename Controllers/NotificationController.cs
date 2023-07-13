@@ -9,24 +9,25 @@ namespace notifier.Controllers;
 public class NotificationController: ControllerBase
 {
     private readonly ILogger<NotificationController> _logger;
-
-    public NotificationController(ILogger<NotificationController> logger)
+    private readonly NotificationService _notificationService;
+    public NotificationController(
+        NotificationService notificationService, 
+        ILogger<NotificationController> logger)
     {
+        _notificationService = notificationService;
         _logger = logger;
     }
     [HttpGet]
     public IEnumerable<Notification> GetAll()
     {
         
-        return NotificationService.GetAll();
+        return _notificationService.GetAll();
     }
     
     [HttpPost]
     public IActionResult Create(Notification notification)
     {
-        NotificationService.Add(notification);
-        NotificationService.Notify(notification);
-        
+        _notificationService.Add(notification);
         return CreatedAtAction(nameof(GetAll), new {Ok= true});
     }
 }
