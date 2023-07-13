@@ -4,7 +4,7 @@ using notifier.Service;
 namespace notifier.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("notification")]
 [ProducesResponseType(StatusCodes.Status201Created)]
 public class NotificationController: ControllerBase
 {
